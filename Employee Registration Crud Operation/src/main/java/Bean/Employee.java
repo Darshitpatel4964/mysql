@@ -2,9 +2,8 @@ package Bean;
 
 /**
  * Employee.java
- * This is a POJO class represents a User entity
+ * This is a POJO class represents a Employee entity
  * @author Darshit patel
- *
  */
 
 public class Employee {
