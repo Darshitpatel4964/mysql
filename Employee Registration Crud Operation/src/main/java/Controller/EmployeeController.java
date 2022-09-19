@@ -28,15 +28,12 @@ public class EmployeeController extends HttpServlet {
         employeeDao = new EmployeeDao();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
-
         try {
             switch (action) {
                 case "/new":
@@ -64,22 +61,19 @@ public class EmployeeController extends HttpServlet {
         
     }
 
-    private void listEmployee(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException, ServletException {
+    private void listEmployee(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List < Employee > listEmployee = employeeDao.listAllEmployee();
         request.setAttribute("listEmployee", listEmployee);
         RequestDispatcher dispatcher = request.getRequestDispatcher("EmployeeList.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showNewEmployeeForm(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    private void showNewEmployeeForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showEditEmployeeForm(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, ServletException, IOException {
+    private void showEditEmployeeForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Employee existingEmployee = employeeDao.selectEmployee(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
@@ -87,8 +81,7 @@ public class EmployeeController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void insertEmployeeDetails(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
+    private void insertEmployeeDetails(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String userName = request.getParameter("user_name");
@@ -100,8 +93,7 @@ public class EmployeeController extends HttpServlet {
         response.sendRedirect("list");
     }
 
-    private void saveEmployeeDetails(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
+    private void saveEmployeeDetails(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
@@ -109,14 +101,12 @@ public class EmployeeController extends HttpServlet {
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String contactNumber = request.getParameter("contact_number");
-
         Employee employeeUpdated = new Employee(id, firstName, lastName, userName, password, address, contactNumber);
         employeeDao.saveEmployeeDetails(employeeUpdated);
         response.sendRedirect("list");
     }
 
-    private void deleteEmployeeDatials(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
+    private void deleteEmployeeDatials(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         employeeDao.deleteEmployeeDatials(id);
         response.sendRedirect("list");
